@@ -37,10 +37,10 @@ What things you need to execute the script
 
 
 
-## update-dynamodb-insights
+## Update DynamoDB Insights
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/dynamodb-insights.png)
 
-This simple utility allows you to enable or disable dynamodb contributor insights. Pass the table name in the script for which you want contributer insights enabled or disabled.
+This simple utility allows you to enable or disable dynamodb contributor insights. Pass the table name in the script for which you want contributer insights enabled or disabled.  Contributor Insights helps you identify which dynamodb partition is highly accessed. It is useful for DynamoDB table RCA.
 
 ### Prerequisites
 
@@ -64,7 +64,7 @@ What things you need to execute the script
 
 ```
 
-## Update dynamodb capacity
+## Update Dynamodb Capacity
 There might be cases when you end up having a lot of DynamoDB tables in your  non-prod environment and they might be either set to Provisioned or On-Demand capacity. If they are not properly managed, cost ($$) of keeping these tables on Provisioned capacity can escalate pretty quickly. This simple python script goes through all the tables and if they are on provisioned capacity changes them to On-demand. If they are already on On-Demand capacity, it doesn't nothing. 
 
 ### Getting Started
