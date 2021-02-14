@@ -1,11 +1,11 @@
 # aws-python-utilities
-Python utilities for AWS. 
+Python utilities for AWS. These utilities help save time with different facets (RCA/reporting/cost saving) of performance testing as part of devops or standalone. 
 
 
-## 1: Cloudwatch Metrics To Image Generation
+## 1: Cloudwatch Metrics To Image
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/cloudwatch-metrics.png)
 
-This simple utility allows you generate Images for the Cloudwatch Metrics. There are times when you want to have an Image for reporting purposes (for example, Performance TSR). This utility reduces the effort required to generate the Image manually. It saves a lot of time when you have lots of Images to generate. 
+This simple utility allows you to generate Images for the Cloudwatch Metrics. There are times when you want to have an Image for reporting purposes (for example, Performance TSR). This utility reduces the effort required to generate the Image manually. It saves a lot of time when you have lots of Images to generate. 
 
 ### Getting Started
 
@@ -40,7 +40,7 @@ What things you need to execute the script
 ## 2: Update DynamoDB Insights
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/dynamodb-insights.png)
 
-This simple utility allows you to enable or disable dynamodb contributor insights. Pass the table name in the script for which you want contributer insights enabled or disabled.  Contributor Insights helps you identify which dynamodb partition is highly accessed. It is useful for DynamoDB table RCA.
+This simple utility allows you to enable or disable dynamodb contributor insights. Pass the table name in the script for which you want contributor insights enabled or disabled.  Contributor Insights helps you identify which dynamodb partition is highly accessed. It is useful for DynamoDB table RCA.
 
 ### Prerequisites
 
