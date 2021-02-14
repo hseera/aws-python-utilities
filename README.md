@@ -2,8 +2,9 @@
 Python utilities for AWS. 
 
 
-![index](https://github.com/hseera/aws-python-utilities/blob/main/images/cloudwatch-metrics.png)
 ## Cloudwatch Metrics Image Generation Utility
+![index](https://github.com/hseera/aws-python-utilities/blob/main/images/cloudwatch-metrics.png)
+
 This simple utility allows you generate Images for the Cloudwatch Metrics. There are times when you want to have an Image for reporting purposes (for example, Performance TSR). This utility reduces the effort required to generate the Image manually. It saves a lot of time when you have lots of Images to generate. 
 
 ### Getting Started
@@ -31,11 +32,14 @@ What things you need to execute the script
 4: If AWS access setup has a different AWS region then you can overwrite it in the RegionConfig parameter in the script. Otherwise comment it out.
 5: Replace the default json payload with the correct Image API json playload. Correct json payload can be copied from the Cloudwatch console. 
 6: Now execute the python script by passing in the start and end time in epoch (ms) for which you want to generate the Image.
+
 ```
 
-![index](https://github.com/hseera/aws-python-utilities/blob/main/images/dynamodb-insights.png)
+
 
 ## update-dynamodb-insights
+![index](https://github.com/hseera/aws-python-utilities/blob/main/images/dynamodb-insights.png)
+
 This simple utility allows you to enable or disable dynamodb contributor insights. Pass the table name in the script for which you want contributer insights enabled or disabled.
 
 ### Prerequisites
@@ -57,6 +61,7 @@ What things you need to execute the script
 2: Replace the default value for the variable "TABLE_TO_UPDATE" with your table name.
 3: If AWS access setup has a different AWS region then you can overwrite it in the RegionConfig parameter in the script. Otherwise comment it out.
 4: Now execute the python script.
+
 ```
 
 ## Update dynamodb capacity
