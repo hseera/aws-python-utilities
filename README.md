@@ -31,7 +31,7 @@ What things you need to execute the script
 4: If AWS access setup has a different AWS region then you can overwrite it in the RegionConfig parameter in the script. Otherwise comment it out.
 5: Replace the default json payload with the correct Image API json playload. Correct json payload can be copied from the Cloudwatch console. 
 6: Now execute the python script by passing in the start and end time in epoch (ms) for which you want to generate the Image.
-
+```
 
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/dynamodb-insights.png)
 
