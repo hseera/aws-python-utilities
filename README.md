@@ -1,8 +1,14 @@
 # aws-python-utilities
 Python utilities for AWS. These utilities help save time with different facets (RCA/reporting/cost saving) of performance testing as part of devops or standalone. 
 
+[1: Cloudwatch Metrics To Image](#1-cloudwatch-metrics-to-image)
 
-## 1: Cloudwatch Metrics To Image
+[2: Update DynamoDB Insights](#2-update-dynamodb-insights)
+
+[3: Update Dynamodb Capacity](#3-update-dynamodb-capacity)
+
+
+# [1: Cloudwatch Metrics To Image](#1-cloudwatch-metrics-to-image)
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/cloudwatch-metrics.png)
 
 This simple utility allows you to generate Images for the Cloudwatch Metrics. There are times when you want to have an Image for reporting purposes (for example, Performance TSR). This utility reduces the effort required to generate the Image manually. It saves a lot of time when you have lots of Images to generate. 
@@ -37,7 +43,7 @@ What things you need to execute the script
 
 
 
-## 2: Update DynamoDB Insights
+# [2: Update DynamoDB Insights](#2-update-dynamodb-insights)
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/dynamodb-insights.png)
 
 This simple utility allows you to enable or disable dynamodb contributor insights. Pass the table name in the script for which you want contributor insights enabled or disabled.  Contributor Insights helps you identify which dynamodb partition is highly accessed. It is useful for DynamoDB table RCA.
@@ -64,7 +70,7 @@ What things you need to execute the script
 
 ```
 
-## 3: Update Dynamodb Capacity
+# [3: Update Dynamodb Capacity](#3-update-dynamodb-capacity)
 There might be cases when you end up having a lot of DynamoDB tables in your  non-prod environment and they might be either set to Provisioned or On-Demand capacity. If they are not properly managed, cost ($$) of keeping these tables on Provisioned capacity can escalate pretty quickly. This simple python script goes through all the tables and if they are on provisioned capacity changes them to On-demand. If they are already on On-Demand capacity, it doesn't nothing. 
 
 ### Getting Started
