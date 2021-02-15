@@ -7,6 +7,8 @@ Python utilities for AWS. These utilities help save time with different facets (
 
 [3: Update Dynamodb Capacity](#3-update-dynamodb-capacity)
 
+[4: Cloudwatch Dashboards](#4-cloudwatch-dashboards)
+
 
 # [1: Cloudwatch Metrics To Image](#1-cloudwatch-metrics-to-image)
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/cloudwatch-metrics.png)
@@ -42,7 +44,6 @@ What things you need to execute the script
 ```
 
 
-
 # [2: Update DynamoDB Insights](#2-update-dynamodb-insights)
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/dynamodb-insights.png)
 
@@ -69,6 +70,7 @@ What things you need to execute the script
 4: Now execute the python script.
 
 ```
+
 
 # [3: Update Dynamodb Capacity](#3-update-dynamodb-capacity)
 There might be cases when you end up having a lot of DynamoDB tables in your  non-prod environment and they might be either set to Provisioned or On-Demand capacity. If they are not properly managed, cost ($$) of keeping these tables on Provisioned capacity can escalate pretty quickly. This simple python script goes through all the tables and if they are on provisioned capacity changes them to On-demand. If they are already on On-Demand capacity, it doesn't nothing. 
@@ -99,6 +101,34 @@ Once above prequisites are setup, execute the python script
 
 * Check when was the table last changed to On-Demand capacity. If it was less than 24 hours than reduce the Provisioned capacity else change it to On-Demand.
 * Improve on the get() function call. In future if AWS changes the json structure, this call if fail. Need to come up with a better approach. 
+
+
+# [4: Cloudwatch Dashboards](#4-cloudwatch-dashboards)
+![index](https://github.com/hseera/aws-python-utilities/blob/main/images/cloudwatch-dashboards.png)
+This simple utility allows you to create or delete cloudwatch dashboards. Useful when you need to create multiple dashboards.
+
+### Prerequisites
+
+What things you need to execute the script
+
+```
+1: awscli
+2: boto3
+3: python 3.5
+4: Setup your AWS Access, Secret key and the AWS region
+
+```
+
+### Execution
+
+```
+1: Make sure above prerequisite are first met.
+2: Replace the default value for the variable "DASHBOARD_JSON" with your dashboard json. Best way is to take an exisiting dashboard json from console, modify it and pass it into the script (if you are creating a dashboard).
+3: Replace the default value for the variable "DASHBOARD_NAME" with your dashboard name.
+4: If AWS access setup has a different AWS region then you can overwrite it in the RegionConfig parameter in the script. Otherwise comment it out.
+5: Now execute the python script.
+
+```
 
 ## Authors
 
