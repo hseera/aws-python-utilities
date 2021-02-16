@@ -1,13 +1,11 @@
 # aws-python-utilities
-Python utilities for AWS. These utilities help save time with different facets (RCA/reporting/cost saving) of performance testing as part of devops or standalone. 
+Python utilities for AWS. These utilities help save time with different facets (RCA/reporting/cost saving) of performance testing as part of devops or standalone.
+The readme page will continue to get updated as and when, I add new utility to the repo.
 
-[1: Cloudwatch Metrics To Image](#1-cloudwatch-metrics-to-image)
-
-[2: Update DynamoDB Insights](#2-update-dynamodb-insights)
-
-[3: Update Dynamodb Capacity](#3-update-dynamodb-capacity)
-
-[4: Cloudwatch Dashboards](#4-cloudwatch-dashboards)
+|Utility Link |Utility Link|
+|:-----|:------|
+|[1: Cloudwatch Metrics To Image](#1-cloudwatch-metrics-to-image)|[2: Update DynamoDB Insights](#2-update-dynamodb-insights)|
+|[3: Update Dynamodb Capacity](#3-update-dynamodb-capacity)|[4: Cloudwatch Dashboards](#4-cloudwatch-dashboards)|
 
 
 # [1: Cloudwatch Metrics To Image](#1-cloudwatch-metrics-to-image)
