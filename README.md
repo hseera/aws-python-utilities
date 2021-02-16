@@ -121,7 +121,7 @@ What things you need to execute the script
 
 ```
 1: Make sure above prerequisite are first met.
-2: Replace the default value for the variable "DASHBOARD_JSON" with your dashboard json. Best way is to take an exisiting dashboard json from console, modify it and pass it into the script (if you are creating a dashboard).
+2: Replace the default payload for the variable "DASHBOARD_JSON" with your dashboard json payload. Best way is to take an exisiting dashboard payload from console, modify it and pass it into the script (if you are creating a dashboard).
 3: Replace the default value for the variable "DASHBOARD_NAME" with your dashboard name.
 4: If AWS access setup has a different AWS region then you can overwrite it in the RegionConfig parameter in the script. Otherwise comment it out.
 5: Now execute the python script.
