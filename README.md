@@ -1,7 +1,15 @@
 # aws-python-utilities
+![Language Python](https://img.shields.io/badge/%20Language-python-blue.svg) [![Apache License](http://img.shields.io/badge/License-Apache-blue.png)](LICENSE)
+
+[![GitHub Last Commits](https://img.shields.io/github/last-commit/hseera/aws-python-utilities.svg)](https://github.com/hseera/aws-python-utilities/commits/) [![GitHub Size](https://img.shields.io/github/repo-size/hseera/aws-python-utilities.svg)](https://github.com/hseera/aws-python-utilities/)
+[![Open GitHub Issue](https://img.shields.io/badge/Open-Incident-brightgreen.svg)](https://github.com/hseera/aws-python-utilities/issues/new/choose)
+[![GitHub Open Issues](https://img.shields.io/github/issues/hseera/aws-python-utilities?color=purple)](https://github.com/hseera/aws-python-utilities/issues?q=is%3Aopen+is%3Aissue)
+[![GitHub Closed Issues](https://img.shields.io/github/issues-closed/hseera/aws-python-utilities?color=purple)](https://github.com/hseera/aws-python-utilities/issues?q=is%3Aclosed+is%3Aissue)
+
 Python utilities for AWS. These utilities help save time with different facets (RCA/reporting/cost saving) of performance testing as part of devops or standalone.
 The readme page will continue to get updated as and when, I add new utility to the repo.
 
+---
 |Utility Link |Utility Link|
 |:-----|:------|
 |[1: Cloudwatch Metrics To Image](#1-cloudwatch-metrics-to-image)|[2: Update DynamoDB Insights](#2-update-dynamodb-insights)|
@@ -128,11 +136,13 @@ What things you need to execute the script
 
 ```
 
-## Authors
+## Contribute
 
-* **Harinder Seera** - *Initial work* - [OzPerf](https://ozperf.com/)
+If you would like to contribute to this project, please reachout to me. Issues and pull requests are welcomed too.
 
-If you would like to contribute to this project, please reachout to me.
+## Author
+[<img id="github" src="./images/github.png" width="50" a="https://github.com/hseera/">](https://github.com/hseera/)    [<img src="./images/linkedin.png" style="max-width:100%;" >](https://www.linkedin.com/in/hpseera) [<img id="twitter" src="./images/twitter.png" width="50" a="twitter.com/HarinderSeera/">](https://twitter.com/@HarinderSeera) <a href="https://twitter.com/intent/follow?screen_name=harinderseera"> <img src="https://img.shields.io/twitter/follow/harinderseera.svg?label=Follow%20@harinderseera" alt="Follow @harinderseera" /> </a>          [![GitHub followers](https://img.shields.io/github/followers/hseera.svg?style=social&label=Follow&maxAge=2592000)](https://github.com/hseera?tab=followers)
+
 
 ## License
 
