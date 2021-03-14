@@ -14,6 +14,7 @@ The readme page will continue to get updated as and when, I add new utility to t
 |:-----|:------|
 |[1: Cloudwatch Metrics To Image](#1-cloudwatch-metrics-to-image)|[2: Update DynamoDB Insights](#2-update-dynamodb-insights)|
 |[3: Update Dynamodb Capacity](#3-update-dynamodb-capacity)|[4: Cloudwatch Dashboards](#4-cloudwatch-dashboards)|
+|[5: Compare Query And Scan](#5-compare-query-and-scan)||
 
 
 # [1: Cloudwatch Metrics To Image](#1-cloudwatch-metrics-to-image)
@@ -135,6 +136,13 @@ What things you need to execute the script
 5: Now execute the python script.
 
 ```
+
+
+# [5: Compare Query And Scan](#5-compare-query-and-scan)
+![index](https://github.com/hseera/aws-python-utilities/blob/main/images/query_scan.png)
+Compare DynamoDB Query vs Scan time.
+
+
 
 ## Contribute
 

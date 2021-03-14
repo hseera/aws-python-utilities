@@ -34,7 +34,7 @@ def generate_time(start_time, end_time):
         
         return start_metric_time, end_metric_time
     except Exception as ex:
-        logging.exception('Caught an error')
+        logging.exception('Caught an error: %s' %ex)
 
 
 """
