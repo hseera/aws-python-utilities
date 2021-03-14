@@ -34,10 +34,13 @@ for i in range(0, MAX_RANGE_VALUE):
 
     random_lines = random.choice(open(FILE_TO_READ).readlines())
     
-    #Pass parameter values based on your dynamodb table information. Also update the parameter values in while loop too.
+    '''
+    Pass parameter values based on your dynamodb table information. Also update the parameter values in while loop too.
+    Using ExpressionAttrbiuteName because uuid is a reserved word in DynamoDB. And partition key of the demo table used for testing is uuid.
+    '''
     operation_parameters = {
       'TableName': 'workload',
-      'ExpressionAttributeNames':{ "#dyno_uuid": "uuid" },
+      'ExpressionAttributeNames':{ "#dyno_uuid": "uuid" },  
       'KeyConditionExpression': '#dyno_uuid = :uuid_2',
       'ExpressionAttributeValues': {
          ':uuid_2': {'S': random_lines.strip()}
@@ -73,7 +76,10 @@ for i in range(0, MAX_RANGE_VALUE):
 
     random_lines = random.choice(open(FILE_TO_READ).readlines())
     
-    #Pass parameter values based on your dynamodb table information. Also update the parameter values in while loop too.
+    '''
+    Pass parameter values based on your dynamodb table information. Also update the parameter values in while loop too.
+    Using ExpressionAttrbiuteName because uuid is a reserved word in DynamoDB. And partition key of the demo table used for testing is uuid.
+    '''
     operation_parameters = {
       'TableName': 'workload',
       'Select': 'ALL_ATTRIBUTES',
