@@ -28,7 +28,7 @@ def batch_get_item(FILE_TO_READ,REGION_CONFIG):
         response = dynamodb_client.batch_get_item(RequestItems={'workload':
             {'Keys': [{'uuid': {'S': random_lines.strip()}}]}})
         end_timer = time.perf_counter()
-        print("%s:-:%s" %(response['ResponseMetadata']['HTTPHeaders']['content-length'],response['Responses']['workload'][0]['uuid'])) #print the response size and uuid is in response
+        #print("%s:-:%s" %(response['ResponseMetadata']['HTTPHeaders']['content-length'],response['Responses']['workload'][0]['uuid'])) #print the response size and uuid is in response to validate the response
         df2 = df2.append({'batch_get_item': end_timer-start_timer}, ignore_index=True)
     return df2
 
@@ -43,7 +43,7 @@ def get_item(FILE_TO_READ,REGION_CONFIG):
         start_timer = time.perf_counter()
         response = table.get_item(Key={'uuid': random_lines.strip()})
         end_timer = time.perf_counter()
-        print("%s:-:%s" %(response['ResponseMetadata']['HTTPHeaders']['content-length'],response['Item']['uuid'])) #print the response size and uuid is in response
+        #print("%s:-:%s" %(response['ResponseMetadata']['HTTPHeaders']['content-length'],response['Item']['uuid'])) #print the response size and uuid is in response to validate the response
         df1 = df1.append({'get_item': end_timer-start_timer}, ignore_index=True)
     return df1
 
