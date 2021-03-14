@@ -140,6 +140,7 @@ What things you need to execute the script
 
 # [5: Compare Query And Scan](#5-compare-query-and-scan)
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/query_scan.png)
+
 Compare DynamoDB Query vs Scan time.
 
 
