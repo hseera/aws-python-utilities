@@ -28,7 +28,7 @@ df2 = pd.DataFrame(columns=['Scan'])
 '''
 Perform query calls. Pass in random data from the file as a parameter.
 Execute query calls equal to MAX_RANGE_VALUE.
-The query call will continue to query data until if there is 'LastEvaluatedKey' in the respose.
+The query call will continue to loop while response has 'LastEvaluatedKey'.
 '''
 for i in range(0, MAX_RANGE_VALUE):
 
@@ -67,7 +67,7 @@ for i in range(0, MAX_RANGE_VALUE):
 Perform scan calls. Pass in random data from the file as a parameter.
 Execute scan calls equal to MAX_RANGE_VALUE.
 The scan call will continue to scan data until it finds it. 
-It uses 'LastEvaluatedKey' & empty response to check the condition to continue scanning. 
+It uses 'LastEvaluatedKey' & empty response to check the condition to continue scanning the table. 
 '''
 for i in range(0, MAX_RANGE_VALUE):
 
