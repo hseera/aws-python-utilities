@@ -7,7 +7,7 @@ import pandas as pd
 
 FILE_TO_READ ="./Data/query-scan.csv"  # Replace with your data file
 
-RESULT_FILE ="./Data/Result-query-scan.csv" #Replace where the result needs to be saved
+RESULT_FILE ="./Data/result-query-scan.csv" #Replace where the result needs to be saved
 
 MAX_RANGE_VALUE = 10 #Max iteration value
 
@@ -34,7 +34,7 @@ for i in range(0, MAX_RANGE_VALUE):
 
     random_lines = random.choice(open(FILE_TO_READ).readlines())
     
-    #Pass parameter values based on your dynamodb table information
+    #Pass parameter values based on your dynamodb table information. Also update the parameter values in while loop too.
     operation_parameters = {
       'TableName': 'workload',
       'ExpressionAttributeNames':{ "#dyno_uuid": "uuid" },
@@ -59,8 +59,7 @@ for i in range(0, MAX_RANGE_VALUE):
                   ExclusiveStartKey=response['LastEvaluatedKey']
                 ) 
     end_timer = time.perf_counter()
-    #print("%s-%s-%s" %(response['Count'],response['ResponseMetadata']['HTTPHeaders']['content-length'],response['Items'][0]['uuid']))
-    
+    #print("%s-%s-%s" %(response['Count'],response['ResponseMetadata']['HTTPHeaders']['content-length'],response['Items'][0]['uuid']))   
     df1 = df1.append({'Query': end_timer-start_timer}, ignore_index=True)
 
 
@@ -74,7 +73,7 @@ for i in range(0, MAX_RANGE_VALUE):
 
     random_lines = random.choice(open(FILE_TO_READ).readlines())
     
-    #Pass parameter values based on your dynamodb table information
+    #Pass parameter values based on your dynamodb table information. Also update the parameter values in while loop too.
     operation_parameters = {
       'TableName': 'workload',
       'Select': 'ALL_ATTRIBUTES',
