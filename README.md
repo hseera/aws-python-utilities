@@ -15,7 +15,7 @@ The readme page will continue to get updated as and when, I add new utility to t
 |[1: Cloudwatch Metrics To Image](#1-cloudwatch-metrics-to-image)|[2: Update DynamoDB Insights](#2-update-dynamodb-insights)|
 |[3: Update Dynamodb Capacity](#3-update-dynamodb-capacity)|[4: Cloudwatch Dashboards](#4-cloudwatch-dashboards)|
 |[5: Compare Query And Scan](#5-compare-query-and-scan)|[6: Compare Get And Batch Get Item](#6-compare-get-and-batch-get-item)|
-
+|[7: Bucket Size](#7-bucket-size)||
 
 # [1: Cloudwatch Metrics To Image](#1-cloudwatch-metrics-to-image)
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/cloudwatch-metrics.png)
@@ -148,6 +148,10 @@ Compare DynamoDB Query vs Scan time.
 
 Compare DynamoDB GetItem and BatchGetItem API calls.
 
+# [7: Bucket Size](#7-bucket-size)
+![index](https://github.com/hseera/aws-python-utilities/blob/main/images/bucket-size.png)
+
+Get S3 Bucket Size.
 
 ## Contribute
 
