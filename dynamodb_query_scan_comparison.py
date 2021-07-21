@@ -4,6 +4,8 @@ import time
 from botocore.config import Config
 import random
 import pandas as pd
+import seaborn as sns
+
 
 FILE_TO_READ ="./Data/query-scan.csv"  # Replace with your data file
 
@@ -112,3 +114,12 @@ df_col_merged = pd.concat([df1, df2], axis=1)
 print(df_col_merged.describe(percentiles=[0.25,0.5,0.75,0.90,0.95],include='all'))
 
 df_col_merged.to_csv(RESULT_FILE,index=False)
+
+
+df = pd.read_csv(RESULT_FILE)
+kwargs = dict(element='step',shrink=.8, alpha=0.6, fill=True, legend=True) 
+ax = sns.histplot(data=df,**kwargs)
+ax.set(xlim=(0.00,1.00))
+ax.set_title('Response Time Distribution')
+ax.set_xlabel('Response Time (s)')
+ax.set_ylabel('Frequency')
