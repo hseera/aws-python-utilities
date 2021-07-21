@@ -51,7 +51,7 @@ def backup_table_data(table_name, bucket_name, key_name):
         
         s3_file_name = os.path.join(Path().absolute(),UPLOAD_FILE)   
         s3_client = boto3.client('s3', config=REGION_CONFIG)
-        s3_client.upload_file(s3_file_name,bucket_name,key_name)
+        s3_client.upload_file(s3_file_name, bucket_name, key_name, Callback=ProgressPercentage(s3_file_name))
         
         print(s3_file_name)
     except Exception, e:
