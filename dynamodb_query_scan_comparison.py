@@ -9,7 +9,7 @@ FILE_TO_READ ="./Data/query-scan.csv"  # Replace with your data file
 
 RESULT_FILE ="./Data/result-query-scan.csv" #Replace where the result needs to be saved
 
-MAX_RANGE_VALUE = 10 #Max iteration value
+MAX_RANGE_VALUE = 350 #Max iteration value
 
 #Set region config. It will overwrite region setting done as part of aws access key setup.
 REGION_CONFIG = Config(
