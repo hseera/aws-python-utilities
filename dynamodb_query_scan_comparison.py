@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+'''
+Update the query and scan parameter with your primary key. 
+For the experiment purpose, the script uses uuid as a primary key.
+'''
 import boto3
 import time
 from botocore.config import Config
@@ -123,15 +127,17 @@ def run_query_and_scan_test():
 def generate_stats_graph():
 
     df = pd.read_csv(RESULT_FILE)
+    
+        
     fig, axes = plt.subplots(1, 2, figsize=(12, 5), sharey=False)
     
+    #generate response time distribution
     kwargs = dict(element='step',shrink=.8, alpha=0.6, fill=True, legend=True) 
     ax = sns.histplot(ax=axes[0],data=df,**kwargs)
-    ax.set(xlim=(0.00,1.00))
+    #ax.set(xlim=(0.00,1.00)) #set the ylim boundary if auto option is not what you need
     ax.set_title('Response Time Distribution')
     ax.set_xlabel('Response Time (s)')
     ax.set_ylabel('Request Count')
-    
     
     
     #generate percentile distribution       
@@ -145,7 +151,7 @@ def generate_stats_graph():
         summary = summary.drop(drop)
     ax = sns.lineplot(ax=axes[1],data=summary,dashes=False, legend=True)
     ax.legend(fontsize='medium')
-    ax.set(ylim=(0,1))
+    #ax.set(ylim=(0.0,1.0)) #set the ylim boundary if auto option is not what you need
     ax.set_title('Percentile Distribution')
     ax.set_xlabel('Percentile')
     ax.set_ylabel('Response Time (s)')
