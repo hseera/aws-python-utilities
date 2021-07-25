@@ -16,6 +16,7 @@ The readme page will continue to get updated as and when, I add new utility to t
 |[3: Update Dynamodb Capacity](#3-update-dynamodb-capacity)|[4: Cloudwatch Dashboards](#4-cloudwatch-dashboards)|
 |[5: Compare Query And Scan](#5-compare-query-and-scan)|[6: Compare Get And Batch Get Item](#6-compare-get-and-batch-get-item)|
 |[7: Bucket Size](#7-bucket-size)|[8: Copy DynamoDB Table](#8-copy-dynamodb-table)|
+|[9: Sample PartiQL DynamoDB Script](#9-sample-partiql-dynamodb-script)||
 
 # [1: Cloudwatch Metrics To Image](#1-cloudwatch-metrics-to-image)
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/cloudwatch-metrics.png)
@@ -156,6 +157,9 @@ Get S3 Bucket Size.
 # [8: Copy DynamoDB Table](#8-copy-dynamodb-table)
 This script takes a backup of a dynamodb table and copy's the data to a different dynamodb table. 
 During the process, the data is first saved to S3 bucket.
+
+# [9: Sample PartiQL DynamoDB Script](#9-sample-partiql-dynamodb-script)
+A sample python script example to execute SQL statement against DynamoDB.
 
 ## Contribute
 
