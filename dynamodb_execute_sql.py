@@ -19,7 +19,7 @@ REGION_CONFIG = Config(
 #sample sql example. Replace this with your own PartiQL SQL statment to query dynamoDB.
 def sql_statement():
     return {
-        "Statement": "SELECT * FROM workload WHERE uuid='9bbd03ef-40de-43cf-9ad7-b00b95c268de'"  
+        "Statement": "SELECT uuid FROM workload"  
     }
 
 
@@ -29,8 +29,10 @@ def execute_statement():
     try:
         input = sql_statement()
         response = dynamodb_client.execute_statement(**input)
-        #Perform appropriate action on the result
-        print(response)
+        '''
+        Add your own action to perform on the result set.
+        '''
+        print(response['uuid'])
         print("Statement executed successfully.")
 
     except Exception as error:

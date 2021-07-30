@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 
 import numpy as np
 
-FILE_TO_READ ="./Data/query-scan.csv"  # Replace with your data file
+FILE_TO_READ ="./Data/testdata.csv"  # Replace with your data file
 
 RESULT_FILE ="./Data/result-query-scan.csv" #Replace where the result needs to be saved
 
@@ -101,6 +101,7 @@ def run_query_and_scan_test():
         }
     
         start_timer = time.perf_counter()
+        #loop=0
         response = dynamodb_client.scan(**operation_parameters)
         while ('LastEvaluatedKey' in response and response['Items']==[]):
             response = dynamodb_client.scan(
@@ -113,7 +114,9 @@ def run_query_and_scan_test():
                       },
                       ExclusiveStartKey=response['LastEvaluatedKey']
                     )
+            #loop = loop + 1
         end_timer = time.perf_counter()
+        #print("Execution time was {}, loop count {}".format(end_timer-start_timer, loop))
         #print("%s-%s-%s" %(response['Count'],response['ResponseMetadata']['HTTPHeaders']['content-length'],response['Items'][0]['uuid']))   
         df2 = df2.append({'Scan': end_timer-start_timer}, ignore_index=True)
     
