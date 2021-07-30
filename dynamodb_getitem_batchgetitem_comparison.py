@@ -72,7 +72,7 @@ def generate_stats_graph(RESULT_FILE):
     #ax.legend(fontsize='medium')
     #ax.set(ylim=(0.0,1.0)) #set the ylim boundary if auto option is not what you need
     ax.set_title('Response Time Distribution')
-    ax.set_xlabel('Operaiton Type')
+    ax.set_xlabel('Operation Type')
     ax.set_ylabel('Response Time (s)')
     
     
