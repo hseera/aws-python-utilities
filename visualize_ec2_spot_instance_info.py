@@ -23,10 +23,10 @@ REGION_CONFIG = Config(
     }
 )
 
-RESULT_FILE ="./Data/spotInstance.csv"
+RESULT_FILE ="./Data/spotInstance.csv" #Path to save the data
 
 #replace region code with region name
-replacements =[
+REGIONS =[
     #find -> replace
     ('us-east-2','US East (Ohio)'),
     ('us-east-1','US East (N. Virginia)'),
@@ -53,7 +53,7 @@ replacements =[
     ('sa-east-1','SA (Sao Paulo)')
     ]
 
-rates =[
+RATES =[
        (0,'<5%'),
        (1,'5-10%'),
        (2,'10-15%'),
@@ -100,15 +100,15 @@ def get_spot_information():
                             interrupt_rate = spot_advisor[region]['Linux'][instance]['r']
                         if (price["ProductDescription"] == "Windows" or price["ProductDescription"] == "Windows (Amazon VPC)"):
                             interrupt_rate = spot_advisor[region]['Windows'][instance]['r']  
-                        for target, replacement in replacements:
+                        for target, replacement in REGIONS:
                             if region == target:
                                 regionName = replacement
-                        for target, rate in rates:
+                        for target, rate in RATES:
                             if interrupt_rate == target:
                                 interrupt_rate = rate
                     except KeyError:
                         interrupt_rate =""
-                    print("Interrupt Rate - {} {} {} {}".format(region, instance,price["ProductDescription"], interrupt_rate))
+                    print("Interrupt Rate: {} - {} - {} => {}".format(region, instance,price["ProductDescription"], interrupt_rate))
                     result.append((regionName, region,price["AvailabilityZone"],price["SpotPrice"], price["InstanceType"],price["ProductDescription"],interrupt_rate))
         return result
     except Exception as e:
@@ -183,7 +183,7 @@ def interruptRate_by_instance_region_and_desc(RESULT_FILE):
 def visualize_data(df,flag):
     
     if flag == 1: 
-        fig, ax = plt.subplots(figsize=(25,20))
+        fig, ax = plt.subplots(figsize=(15,10))
     else:
         fig, ax = plt.subplots()
 
@@ -213,6 +213,7 @@ def main():
     '''
     This function is resource intensive if there are lots of instances to visualize. 
     By default it is commented out.
+    Also the figsize will need to be update to capture the column names.
     '''
     #current_price_data_by_instance_region_and_zone(RESULT_FILE) 
     
