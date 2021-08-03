@@ -173,7 +173,7 @@ def current_price_data_by_instance_region_and_zone(RESULT_FILE):
 #This function gives spot price by Region, Zone and InstanceType. 
 def interruptRate_by_instance_region_and_desc(RESULT_FILE):
     df = pd.read_csv(RESULT_FILE)
-    df["ZoneRate"] = df["InstanceType"]+"-" + df["ProductDescription"]
+    df["ZoneRate"] = df["InstanceType"]+" (" + df["ProductDescription"]+")"
     df=df.pivot(index='regionCode', columns='ZoneRate', values='InterruptRate')
     df=df.fillna("-")
     visualize_data(df,1)
