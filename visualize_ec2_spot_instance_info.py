@@ -1,9 +1,20 @@
+# -*- coding: utf-8 -*-
+"""
+TODO:
+    1: Improve code readability
+    2: Revisit Interrupt rate code. Perform bit more testing on it.
+    3: Add a progress status
+    
+"""
+
 import boto3
 import datetime
 from botocore.config import Config
 import pandas as pd
 from pandas import DataFrame
 import matplotlib.pyplot as plt
+import requests
+import json
 
 REGION_CONFIG = Config(
     region_name = 'ap-southeast-2',
@@ -43,6 +54,14 @@ replacements =[
     ('sa-east-1','SA (Sao Paulo)')
     ]
 
+rates =[
+       (0,'<5%'),
+       (1,'5-10%'),
+       (2,'10-15%'),
+       (3,'15-20%'),
+       (4,'>20%'),
+       ]
+
 #get spot information for given instance type, region and availability zone 
 def get_spot_information():
     
@@ -59,8 +78,13 @@ def get_spot_information():
             
         '''
         instances =['t3a.small','t3a.2xlarge','c5a.large','m4.xlarge']
+        #instances =['t3a.small']
         
         result = []
+        
+        url_interruptions = "https://spot-bid-advisor.s3.amazonaws.com/spot-advisor-data.json"
+        response = requests.get(url=url_interruptions)
+        spot_advisor = json.loads(response.text)['spot_advisor']
         
         for instance in instances:
             for region in regions:
@@ -73,10 +97,21 @@ def get_spot_information():
                     MaxResults=1
                     )
                 for price in prices['SpotPriceHistory']:
-                    for target, replacement in replacements:
-                        if region == target:
-                            regionName = replacement
-                    result.append((Time,regionName, region,price["AvailabilityZone"],price["SpotPrice"], price["InstanceType"],price["ProductDescription"]))
+                    try:
+                        if (price["ProductDescription"] == "Linux/UNIX (Amazon VPC)" or price["ProductDescription"] == "Linux/UNIX"):
+                            interrupt_rate = spot_advisor[region]['Linux'][instance]['r']
+                        if (price["ProductDescription"] == "Windows" or price["ProductDescription"] == "Windows (Amazon VPC)"):
+                            interrupt_rate = spot_advisor[region]['Windows'][instance]['r']  
+                        for target, replacement in replacements:
+                            if region == target:
+                                regionName = replacement
+                        for target, rate in rates:
+                            if interrupt_rate == target:
+                                interrupt_rate = rate
+                    except KeyError:
+                        interrupt_rate =""
+                    #print("{} {} {} {}".format(region, instance,price["ProductDescription"], interrupt_rate))
+                    result.append((regionName, region,price["AvailabilityZone"],price["SpotPrice"], price["InstanceType"],price["ProductDescription"],interrupt_rate))
         return result
     except Exception as e:
         print(e)
@@ -84,7 +119,7 @@ def get_spot_information():
 
 #Save spot information data to csv
 def save_data_to_csv(result):
-    df = DataFrame(result,columns=['Time','regionName','regionCode','AvailabilityZone','SpotPrice','InstanceType','ProductDescription'])
+    df = DataFrame(result,columns=['regionName','regionCode','AvailabilityZone','SpotPrice','InstanceType','ProductDescription','InterruptRate'])
     df["SpotPrice"] = df["SpotPrice"].apply(pd.to_numeric)
     df.to_csv(RESULT_FILE,index=False)
 
@@ -140,6 +175,15 @@ def current_price_data_by_instance_region_and_zone(RESULT_FILE):
     visualize_data(df,1)
 
 
+#This function gives spot price by Region, Zone and InstanceType. 
+def interruptRate_by_instance_zone_and_desc(RESULT_FILE):
+    df = pd.read_csv(RESULT_FILE)
+    df["ZoneRate"] = df["AvailabilityZone"]+"-" + df["InstanceType"]
+    df=df.pivot(index='ZoneRate', columns='ProductDescription', values='InterruptRate')
+    df=df.fillna("-")
+    visualize_data(df,1)
+
+
 #visualize the data
 def visualize_data(df,flag):
     
@@ -169,6 +213,7 @@ def main():
     current_price_data_by_type_and_zone(RESULT_FILE)
     data_by_description_and_zone(RESULT_FILE)
     data_by_description_and_type(RESULT_FILE)
+    interruptRate_by_instance_zone_and_desc(RESULT_FILE)
     
     '''
     This function is resource intensive if there are lots of instances to visualize. 
