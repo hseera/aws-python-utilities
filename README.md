@@ -16,7 +16,7 @@ The readme page will continue to get updated as and when, I add new utility to t
 |[3: Update Dynamodb Capacity](#3-update-dynamodb-capacity)|[4: Cloudwatch Dashboards](#4-cloudwatch-dashboards)|
 |[5: Compare Query And Scan](#5-compare-query-and-scan)|[6: Compare Get And Batch Get Item](#6-compare-get-and-batch-get-item)|
 |[7: Bucket Size](#7-bucket-size)|[8: Copy DynamoDB Table](#8-copy-dynamodb-table)|
-|[9: Sample PartiQL DynamoDB Script](#9-sample-partiql-dynamodb-script)||
+|[9: Sample PartiQL DynamoDB Script](#9-sample-partiql-dynamodb-script)|[10: Spot Instance info](#10-spot-instance-info)|
 
 # [1: Cloudwatch Metrics To Image](#1-cloudwatch-metrics-to-image)
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/cloudwatch-metrics.png)
@@ -160,6 +160,15 @@ During the process, the data is first saved to S3 bucket.
 
 # [9: Sample PartiQL DynamoDB Script](#9-sample-partiql-dynamodb-script)
 A sample python script example to execute SQL statement against DynamoDB.
+
+# [10: Spot Instance info](#10-spot-instance-info)
+Script to help extract spot instance information to answer questions such as:
+1. What is the current spot instance price in each region?
+2. What type of spot instances are available in a region & availability zone?
+3. What is the interruption rate for a spot instance?
+4. What OS is available for a spot instance in a region & availability zone?
+![index](https://github.com/hseera/aws-python-utilities/blob/main/images/location-price.png)
+
 
 ## Contribute
 
