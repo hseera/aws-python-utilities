@@ -168,9 +168,7 @@ Script to help extract spot instance information to answer questions such as:
 3. What is the interruption rate for a spot instance?
 4. What OS is available for a spot instance in a region & availability zone?
 
-![index](https://github.com/hseera/aws-python-utilities/blob/main/images/location-price.png)
-
-![index](https://github.com/hseera/aws-python-utilities/blob/main/images/interrupt-rate.png)
+![index](https://github.com/hseera/aws-python-utilities/blob/main/images/location-price.png)(https://github.com/hseera/aws-python-utilities/blob/main/images/interrupt_rate.png)
 
 
 ## Contribute
