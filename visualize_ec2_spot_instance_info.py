@@ -2,8 +2,7 @@
 """
 TODO:
     1: Improve code readability
-    2: Revisit Interrupt rate code. Perform bit more testing on it.
-    3: Add a progress status
+    2: Add a progress status
     
 """
 
@@ -78,7 +77,6 @@ def get_spot_information():
             
         '''
         instances =['t3a.small','t3a.2xlarge','c5a.large','m4.xlarge']
-        #instances =['t3a.small']
         
         result = []
         
@@ -92,7 +90,7 @@ def get_spot_information():
                 Time = (datetime.datetime.now() - datetime.timedelta(hours=1)).isoformat()
                 prices = client.describe_spot_price_history(
                     InstanceTypes=[instance],
-                    ProductDescriptions=['Linux/UNIX','Linux/UNIX (Amazon VPC)','Windows','Windows (Amazon VPC)'],
+                    ProductDescriptions=['Linux/UNIX','Windows'],
                     StartTime = Time,
                     MaxResults=1
                     )
@@ -110,7 +108,7 @@ def get_spot_information():
                                 interrupt_rate = rate
                     except KeyError:
                         interrupt_rate =""
-                    #print("{} {} {} {}".format(region, instance,price["ProductDescription"], interrupt_rate))
+                    print("Interrupt Rate - {} {} {} {}".format(region, instance,price["ProductDescription"], interrupt_rate))
                     result.append((regionName, region,price["AvailabilityZone"],price["SpotPrice"], price["InstanceType"],price["ProductDescription"],interrupt_rate))
         return result
     except Exception as e:
@@ -134,12 +132,9 @@ def data_by_availability_and_zone(RESULT_FILE):
     
     fig, ax = plt.subplots(figsize=(30, 10))
     df = (df.pivot_table(index=['InstanceType','AvailabilityZone'], aggfunc='size')).unstack(fill_value='-')
-    
     '''
-    df = (df.pivot_table(index=['AvailabilityZone','InstanceType'], aggfunc='size')).unstack(fill_value='-')
-    
+    df = (df.pivot_table(index=['AvailabilityZone','InstanceType'], aggfunc='size')).unstack(fill_value='-') 
     df.replace(to_replace=1,value ='Y', inplace=True)
-   
     visualize_data(df,0)
 
 
@@ -176,10 +171,10 @@ def current_price_data_by_instance_region_and_zone(RESULT_FILE):
 
 
 #This function gives spot price by Region, Zone and InstanceType. 
-def interruptRate_by_instance_zone_and_desc(RESULT_FILE):
+def interruptRate_by_instance_region_and_desc(RESULT_FILE):
     df = pd.read_csv(RESULT_FILE)
-    df["ZoneRate"] = df["AvailabilityZone"]+"-" + df["InstanceType"]
-    df=df.pivot(index='ZoneRate', columns='ProductDescription', values='InterruptRate')
+    df["ZoneRate"] = df["InstanceType"]+"-" + df["ProductDescription"]
+    df=df.pivot(index='regionCode', columns='ZoneRate', values='InterruptRate')
     df=df.fillna("-")
     visualize_data(df,1)
 
@@ -213,7 +208,7 @@ def main():
     current_price_data_by_type_and_zone(RESULT_FILE)
     data_by_description_and_zone(RESULT_FILE)
     data_by_description_and_type(RESULT_FILE)
-    interruptRate_by_instance_zone_and_desc(RESULT_FILE)
+    interruptRate_by_instance_region_and_desc(RESULT_FILE)
     
     '''
     This function is resource intensive if there are lots of instances to visualize. 
