@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 TODO:
-    1: Improve code readability
-    2: Add a progress status
+    1: Add a progress status
     
 """
 
