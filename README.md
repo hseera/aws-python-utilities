@@ -251,14 +251,14 @@ Enter
 
 
 
-## Contribute
+# Contribute
 
 If you would like to contribute to this project, please reachout to me. Issues and pull requests are welcomed too.
 
-## Author
+# Author
 [<img id="github" src="./images/github.png" width="50" a="https://github.com/hseera/">](https://github.com/hseera/)    [<img src="./images/linkedin.png" style="max-width:100%;" >](https://www.linkedin.com/in/hpseera) [<img id="twitter" src="./images/twitter.png" width="50" a="twitter.com/HarinderSeera/">](https://twitter.com/@HarinderSeera) <a href="https://twitter.com/intent/follow?screen_name=harinderseera"> <img src="https://img.shields.io/twitter/follow/harinderseera.svg?label=Follow%20@harinderseera" alt="Follow @harinderseera" /> </a>          [![GitHub followers](https://img.shields.io/github/followers/hseera.svg?style=social&label=Follow&maxAge=2592000)](https://github.com/hseera?tab=followers)
 
 
-## License
+# License
 
 This project is licensed under the Apache License - see the [LICENSE](LICENSE) file for details
