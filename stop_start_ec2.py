@@ -33,6 +33,7 @@ REGION_CONFIG = Config(
 
 CLIENT = boto3.client('ec2', config=REGION_CONFIG)
 
+#descript all ec2 instance and extract instanceid, instancetype, state-name, state-code,platform info.
 def describe_ec2():
     ec2_info = []
     try:
@@ -51,7 +52,7 @@ def describe_ec2():
     except Exception as e:
         print(e)
 
-
+#stop/start all instances
 def instanceid(option):
     try:
         ec2_info = describe_ec2()
@@ -78,6 +79,7 @@ def instanceid(option):
     except Exception as e:
         print(e)
 
+#stop/start instances by given instance type
 def instance_type(option, instancetype):
     try:
         ec2_info = describe_ec2()
@@ -104,7 +106,8 @@ def instance_type(option, instancetype):
     except Exception as e:
         print(e)
 
-    
+  
+#stop/start instance by given platform type  
 def platform(option, platform):
     try:
         ec2_info = describe_ec2()
