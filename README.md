@@ -178,7 +178,7 @@ Script to help extract spot instance information to answer questions such as:
 # [11: Stop Start EC2](#11-stop-start-ec2)
 Script gives the capability to stop & start ec2 instanced based on instanceid, instance type or platform.
 
-## Stop & Start By Instance Id
+## Stop & Start All Instances
 
 ```
 stop id
@@ -203,6 +203,9 @@ Pass "windows" if you want to stop or start Windows platform. Otherwise pass oth
 ```
 stop platform windows
 start platform windows
+```
+or
+```
 stop platform other
 start platform other
 ```

@@ -1,6 +1,20 @@
 # -*- coding: utf-8 -*-
 """
+To stop or start all instances:
+    cmd: ./stop_start_ec2.py stop/start id
 
+To stop or start all instances by instance type:
+    cmd: ./stop_start_ec2.py stop/start type {instance type}
+    example: ./stop_start_ec2.py stop/start type t2.micro
+
+To stop or start all instances by platform (i.e. windows or other):
+    cmd: ./stop_start_ec2.py stop/start platform {platform}
+    example: ./stop_start_ec2.py {stop/start} platform {windows/other}
+
+TO DO:
+    1. Terminate instances
+    2. Stop/start given instance id
+    3. Stop/start by tag
 """
 
 import boto3
