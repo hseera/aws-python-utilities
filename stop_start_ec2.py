@@ -11,9 +11,16 @@ To stop or start all instances by platform (i.e. windows or other):
     cmd: ./stop_start_ec2.py stop/start platform {platform}
     example: ./stop_start_ec2.py {stop/start} platform {windows/other}
 
+To stop or start all instances by platform & instance type (i.e. windows or other):
+    cmd: ./stop_start_ec2.py stop/start {platform} {instancetype}
+    example: 
+        ./stop_start_ec2.py stop windows t2.micro
+        ./stop_start_ec2.py start other c4.2xlarge
+    
+
 TO DO:
     1. Terminate instances
-    2. Stop/start given instance id
+    2. Stop/start an ec2 instance given it's instance id (Not ALL instances but single)
     3. Stop/start by tag
 """
 
