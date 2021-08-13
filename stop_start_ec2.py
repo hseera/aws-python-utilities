@@ -39,7 +39,7 @@ REGION_CONFIG = Config(
 
 CLIENT = boto3.client('ec2', config=REGION_CONFIG)
 
-#descript all ec2 instance and extract instanceid, instancetype, state-name, state-code,platform info.
+#describe all ec2 instance and extract instanceid, instancetype, state-name, state-code,platform info.
 def describe_ec2():
     ec2_info = []
     try:
