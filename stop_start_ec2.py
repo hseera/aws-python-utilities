@@ -22,6 +22,7 @@ TO DO:
     1. Terminate instances
     2. Stop/start an ec2 instance given it's instance id (Not ALL instances but single)
     3. Stop/start by tag
+    4. Use filter option in describe_ec2() instead of doing manipulation myself
 """
 
 import boto3
