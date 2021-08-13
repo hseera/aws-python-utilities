@@ -181,35 +181,56 @@ Script gives the capability to stop & start ec2 instanced based on instanceid, i
 ## Stop & Start All Instances
 
 ```
-stop id
-start id
+./stop_start_ec2.py stop id
+./stop_start_ec2.py start id
 ```
 
 ## Stop & Start By Instance type
 
 ```
-stop type <<instance type>>
-start type <<instance type>>
+./stop_start_ec2.py stop type <<instance type>>
+./stop_start_ec2.py start type <<instance type>>
 ```
 example
 ```
-stop type t2.micro
-start type t2.micro
+./stop_start_ec2.py stop type t2.micro
+./stop_start_ec2.py start type t2.micro
 ```
 
 ## Stop & Start By Platform
 Pass "windows" if you want to stop or start Windows platform. Otherwise pass other.
 
 ```
-stop platform windows
-start platform windows
+./stop_start_ec2.py stop platform windows
+./stop_start_ec2.py start platform windows
 ```
 or
 ```
-stop platform other
-start platform other
+./stop_start_ec2.py stop platform other
+./stop_start_ec2.py start platform other
 ```
 
+## Stop & Start By Platform And InstanceType
+Pass "windows" if you want to stop or start Windows platform. Otherwise pass other.
+Also pass in what Instance type you want to stop or start.
+
+```
+./stop_start_ec2.py stop windows {InstanceType}
+./stop_start_ec2.py start windows {InstanceType}
+```
+or
+```
+./stop_start_ec2.py stop other {InstanceType}
+./stop_start_ec2.py start other {InstanceType}
+```
+
+example
+```
+./stop_start_ec2.py stop windows t2.micro
+./stop_start_ec2.py start other t2.micro
+./stop_start_ec2.py start windows t2.small
+./stop_start_ec2.py stop other c4.2xlarge
+```
 
 ## Requirements
 ### Python Modules
