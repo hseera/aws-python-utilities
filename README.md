@@ -17,7 +17,7 @@ The readme page will continue to get updated as and when, I add new utility to t
 |[5: Compare Query And Scan](#5-compare-query-and-scan)|[6: Compare Get And Batch Get Item](#6-compare-get-and-batch-get-item)|
 |[7: Bucket Size](#7-bucket-size)|[8: Copy DynamoDB Table](#8-copy-dynamodb-table)|
 |[9: Sample PartiQL DynamoDB Script](#9-sample-partiql-dynamodb-script)|[10: Spot Instance info](#10-spot-instance-info)|
-|[11: Stop Start EC2](#11-stop-start-ec2)||
+|[11: Stop Start EC2](#11-stop-start-ec2)|[12: Synthetic Monitoring](#12-synthetic-monitoring)|
 
 # [1: Cloudwatch Metrics To Image](#1-cloudwatch-metrics-to-image)
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/cloudwatch-metrics.png)
@@ -272,8 +272,86 @@ Enter
 * As default region name enter your Availability Zone (AZ) and
 * use "json" as default output format
 
+# [12: Synthetic Monitoring](#12-synthetic-monitoring)
+Script gives you the capability to Start,Stop, Delete & Create canaries.
 
+## Star & Stop All canaries
 
+```
+./synthetic_canary.py stop
+./synthetic_canary.py start
+```
+
+## Star & Stop a canary
+
+```
+./synthetic_canary.py stop/start <<canary name>>
+```
+example
+```
+./synthetic_canary.py stop workload
+./synthetic_canary.py start workload
+```
+
+## Delete a canary
+
+```
+./synthetic_canary.py delete {canary name}
+```
+example
+```
+./synthetic_canary.py delete workload
+```
+
+## Create a canary
+
+```
+./synthetic_canary.py create {canary name}
+```
+example
+```
+./synthetic_canary.py create workload
+```
+
+## Requirements
+### Python Modules
+If you never used Amazon Web Services with Python before, you have to install two additional modules:
+```
+pip install boto3 botocore
+```
+or
+```
+pip3 install boto3 botocore
+```
+### AWS Credentials
+Save your AWS Credentials in your home/users folder:
+
+Linux:
+```
+/home/[username]/.aws
+```
+
+Windows:
+```
+/Users/[username]/.aws
+```
+For more information about the content of the .aws folder check the AWS documentation: [Configuration and Credential Files.](https://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)
+
+Instead of creating the .aws folder manually you can use the [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html):
+
+* [Installer for Windows](https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-windows.html#install-msi-on-windows)
+* [Installer for Linux, UNIX](https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-bundle.html)
+
+After you've installed the AWS CLI open the PowerShell (or the Command Prompt) in Windows. In UNIX-like systems open a Shell. Then run the following command:
+```
+aws configure
+```
+Enter
+
+* your AWS Access Key ID and
+* your AWS Secret Access Key.
+* As default region name enter your Availability Zone (AZ) and
+* use "json" as default output format
 
 # Contribute
 
