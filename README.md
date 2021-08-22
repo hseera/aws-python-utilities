@@ -274,7 +274,7 @@ Enter
 * use "json" as default output format
 
 # [12: Synthetic Monitoring](#12-synthetic-monitoring)
-Script gives you the capability to Start,Stop, Delete & Create canaries.
+Script gives you the capability to Start,Stop, Delete & Create canaries. You can also query to get script runtime version, which is required to create a canary.
 
 ## Star & Stop All canaries
 
@@ -303,6 +303,13 @@ example
 ```
 ./synthetic_canary.py delete workload
 ```
+
+## Script Runtime Version
+Returns a list of Synthetics canary runtime versions and their dependencies.
+```
+./synthetic_canary.py runtime
+```
+
 
 ## Create a canary
 
