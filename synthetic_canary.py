@@ -17,6 +17,9 @@ To delete a canary:
     example: 
         ./synthetic_canary.py delete workload
 
+To get canary runtime versions:
+    cmd: ./synthetic_canary.py runtime
+
 To create a canary:
     cmd: ./synthetic_canary.py create {canary name}
     example: 
@@ -24,11 +27,13 @@ To create a canary:
     NOTE: 
         1: The create canary script doesn't include vpc,tag or env info in the payload. 
         Pass those in the payload if they are important for your usecase.
-        2: Your python zip file needs to be in the following folder structure when you load to s3
+        2: If you don't know what script runtime version to pass to create canary, 
+           Run script first with 'runtime' parameter to get all available synthetic canary runtime versions.
+        3: Your python zip file needs to be in the following folder structure when you load to s3
            .zip
            ->python/
            --->file.py
-        3: Your nodejs zip file needs to be in the following folder structure when you load to s3
+        4: Your nodejs zip file needs to be in the following folder structure when you load to s3
            .zip
            ->nodejs/
            --->node_modules/
@@ -44,6 +49,7 @@ from botocore.config import Config
 from pandas import DataFrame
 import sys
 import time
+import re
 
 #Update the region config based on your usecase
 REGION_CONFIG = Config(
@@ -223,7 +229,15 @@ def create_canary(option, canary_name):
     except Exception as e:
         print(e)
         
+def script_runtime_version(option):
+    try:
+        response = CLIENT.describe_runtime_versions()
         
+        for version in response['RuntimeVersions']:
+            desc = re.search('Dependencies: (.*)', version['Description'])
+            print ("Version: {} - Dependencies: {}".format(version['VersionName'],desc.group(1)))
+    except Exception as e:
+        print(e)
         
 def main(argv):
     if len(sys.argv) == 1:
@@ -231,6 +245,8 @@ def main(argv):
     elif len(sys.argv) == 2:
         if str(sys.argv[1])=="start" or str(sys.argv[1])=="stop":
             start_stop_all_canaries(str(sys.argv[1]))
+        elif str(sys.argv[1])=="runtime":
+            script_runtime_version(str(sys.argv[1]))
         else:
             print("Wrong number of arguments or unrecognized arguments")
     elif len(sys.argv) == 3:
