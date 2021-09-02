@@ -364,6 +364,9 @@ Enter
 
 # [13: SQS Playa](#13-sqs-playa)
 GUI utility for Windows OS to send message to AWS SQS.
+Currently MVP status. More feature and improvements will be added to it.
+
+Current version requires you to build exe from the code.
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/sqs-playa.png)
 
 
