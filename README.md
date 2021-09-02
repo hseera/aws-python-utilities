@@ -18,7 +18,7 @@ The readme page will continue to get updated as and when, I add new utility to t
 |[7: Bucket Size](#7-bucket-size)|[8: Copy DynamoDB Table](#8-copy-dynamodb-table)|
 |[9: Sample PartiQL DynamoDB Script](#9-sample-partiql-dynamodb-script)|[10: Spot Instance info](#10-spot-instance-info)|
 |[11: Stop Start EC2](#11-stop-start-ec2)|[12: Synthetic Monitoring](#12-synthetic-monitoring)|
-|||
+|[13: SQS Playa](#13-sqs-playa)||
 
 # [1: Cloudwatch Metrics To Image](#1-cloudwatch-metrics-to-image)
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/cloudwatch-metrics.png)
@@ -331,6 +331,54 @@ or
 ```
 pip3 install boto3 botocore
 ```
+### AWS Credentials
+Save your AWS Credentials in your home/users folder:
+
+Linux:
+```
+/home/[username]/.aws
+```
+
+Windows:
+```
+/Users/[username]/.aws
+```
+For more information about the content of the .aws folder check the AWS documentation: [Configuration and Credential Files.](https://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)
+
+Instead of creating the .aws folder manually you can use the [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html):
+
+* [Installer for Windows](https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-windows.html#install-msi-on-windows)
+* [Installer for Linux, UNIX](https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-bundle.html)
+
+After you've installed the AWS CLI open the PowerShell (or the Command Prompt) in Windows. In UNIX-like systems open a Shell. Then run the following command:
+```
+aws configure
+```
+Enter
+
+* your AWS Access Key ID and
+* your AWS Secret Access Key.
+* As default region name enter your Availability Zone (AZ) and
+* use "json" as default output format
+
+
+# [13: SQS Playa](#13-sqs-playa)
+GUI utility for Windows OS to send message to AWS SQS.
+![index](https://github.com/hseera/aws-python-utilities/blob/main/images/sqs-playa.png)
+
+
+## Requirements
+### Python Modules
+If you never used Amazon Web Services with Python before, you have to install the following modules:
+```
+boto3 
+botocore
+PySimpleGUI
+import boto3
+icecream
+
+```
+
 ### AWS Credentials
 Save your AWS Credentials in your home/users folder:
 
