@@ -18,7 +18,7 @@ The readme page will continue to get updated as and when, I add new utility to t
 |[7: Bucket Size](#7-bucket-size)|[8: Copy DynamoDB Table](#8-copy-dynamodb-table)|
 |[9: Sample PartiQL DynamoDB Script](#9-sample-partiql-dynamodb-script)|[10: Spot Instance info](#10-spot-instance-info)|
 |[11: Stop Start EC2](#11-stop-start-ec2)|[12: Synthetic Monitoring](#12-synthetic-monitoring)|
-|[13: SQS Playa](#13-sqs-playa)||
+|[13: SQS Workbench](#13-sqs-workbench)||
 
 # [1: Cloudwatch Metrics To Image](#1-cloudwatch-metrics-to-image)
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/cloudwatch-metrics.png)
@@ -362,7 +362,7 @@ Enter
 * use "json" as default output format
 
 
-# [13: SQS Playa](#13-sqs-playa)
+# [13: SQS Workbench](#13-sqs-workbench)
 GUI utility for Windows OS to send message to AWS SQS.
 Currently MVP status. More feature and improvements will be added to it.
 
