@@ -146,10 +146,10 @@ def send_message(msg, REGION_NAME, queue_url):
         }
     )
     CLIENT = session.client('sqs', config=REGION_CONFIG)
-    message = {"test": msg}    
+    #message = {"test": msg}    
     response = CLIENT.send_message(
         QueueUrl=queue_url,
-        MessageBody=json.dumps(message)
+        MessageBody=json.dumps(msg)
     )
     return response
 
