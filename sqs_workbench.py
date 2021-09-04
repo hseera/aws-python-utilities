@@ -1,14 +1,12 @@
-# sqs_playa.py
+# sqs_workbench.py
 '''
 Useful for sending one or multiple messages to AWS SQS.Especially useful for those using Windows OS.
 The application is build using PySimpleGUI. 
 It expects you have setup the aws id/key in
-Linux:   /home/[username]/.aws
-Windows: /Users/[username]/.aws
+  Linux:   /home/[username]/.aws
+  Windows: /Users/[username]/.aws
+If you don't have aws id/key setup in the above location, you can enter those detail in the config tab. Plus your default region. 
 
-In subsequent build will have 
-1: The capability to enter credentials in the application.
-2: Executable application. Currently you will need to build it. 
 
 '''
 
@@ -51,7 +49,7 @@ Post_message =[
     ]
 
 Console =[
-    [sg.Text("Output")],
+    [sg.Text("Console")],
     [sg.Multiline(size=(60, 22),key="-CONSOLEMSG-",disabled=True)],
     [sg.B("Clear Output",size=(26, 1)),sg.B("Save Output",size=(26, 1))]
     ]
