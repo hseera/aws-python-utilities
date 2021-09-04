@@ -1,12 +1,14 @@
-# sqs_workbench.py
+# sqs_playa.py
 '''
 Useful for sending one or multiple messages to AWS SQS.Especially useful for those using Windows OS.
 The application is build using PySimpleGUI. 
 It expects you have setup the aws id/key in
-  Linux:   /home/[username]/.aws
-  Windows: /Users/[username]/.aws
-If you don't have aws id/key setup in the above location, you can enter those detail in the config tab. Plus your default region. 
+Linux:   /home/[username]/.aws
+Windows: /Users/[username]/.aws
 
+In subsequent build will have 
+1: The capability to enter credentials in the application.
+2: Executable application. Currently you will need to build it. 
 
 '''
 
@@ -49,7 +51,7 @@ Post_message =[
     ]
 
 Console =[
-    [sg.Text("Console")],
+    [sg.Text("Output")],
     [sg.Multiline(size=(60, 22),key="-CONSOLEMSG-",disabled=True)],
     [sg.B("Clear Output",size=(26, 1)),sg.B("Save Output",size=(26, 1))]
     ]
@@ -289,7 +291,8 @@ def main():
                 window["-CONSOLEMSG-"].update(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e)+"\n", append=True)
         
         if event == '-RECEIVE-':
-            window['-RECEIVEMSG-'].update(str(values['-RECEIVE-']))
+            
+            window['-RECEIVEMSG-'].update(values['-RECEIVE-'])
             
         if event == '-WRITE-':
             window["-CONSOLEMSG-"].update(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(values['-WRITE-'])+"\n", append=True)
@@ -304,6 +307,7 @@ def main():
                         window["-QUEUEMSG-"].update(text)
                 except Exception as e:
                     window["-CONSOLEMSG-"].update(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e)+"\n", append=True)
+        
         if event == 'Send Multi Msgs':
             try:
                 counter = int(values['-ITERATE-'])
