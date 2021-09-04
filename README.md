@@ -377,9 +377,6 @@ If you never used Amazon Web Services with Python before, you have to install th
 boto3 
 botocore
 PySimpleGUI
-import boto3
-icecream
-
 ```
 
 ### AWS Credentials
