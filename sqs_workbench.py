@@ -15,7 +15,6 @@ In subsequent build will have
 import PySimpleGUI as sg
 import boto3
 from botocore.config import Config
-from icecream import ic
 import json
 from boto3.session import Session
 import threading
@@ -23,7 +22,6 @@ from pathlib import Path
 import datetime
 import time
 
-ic.disable()
 session = boto3.session.Session()
 
 data=[]
@@ -38,14 +36,14 @@ Region = [
 
 Queue_list =[
     [sg.Text("Queue List (Select Queue from the list)")],
-    [sg.Listbox(values=[], enable_events=True, size=(110, 5), key="-QUEUENAME-")],
-    [sg.Table(values=data,key="-TABLE-", headings=['ApproximateNumberOfMessages', 'ApproximateNumberOfMessagesNotVisible', 'ApproximateNumberOfMessagesDelayed'],auto_size_columns=False, col_widths=[26, 30, 29],  num_rows=3)]
+    [sg.Listbox(values=[], enable_events=True, size=(112, 5), key="-QUEUENAME-")],
+    [sg.Table(values=data,key="-TABLE-", headings=['ApproximateNumberOfMessages', 'ApproximateNumberOfMessagesNotVisible', 'ApproximateNumberOfMessagesDelayed'],auto_size_columns=False, col_widths=[27, 30, 30],  num_rows=3)]
     ]
 
 Post_message =[
     [sg.Text("Message PayLoad")],
     [sg.Text("FilePath"),sg.Input(key='-INPUT-', size=(45, 1)),sg.FileBrowse(file_types=(("Json Files", "*.json"),),size=(10, 1)),sg.B("Load",size=(10, 1))],
-    [sg.Multiline(size=(80, 20),key="-QUEUEMSG-")],
+    [sg.Multiline(size=(80, 18),key="-QUEUEMSG-")],
     [sg.Text("# of Msg To Send"),sg.In(size=(5, 1),key='-ITERATE-'),
      sg.Text("Delay Btw Msgs (sec)"),sg.In(size=(5, 1),key='-DELAY-'),
      sg.B("Send Multi Msgs",size=(13, 1)),sg.B("Send Once",size=(11, 1))] #
@@ -62,19 +60,28 @@ Region_buttons =[
     [sg.B("List Regions",size=(12, 1)), sg.B("List Queues",size=(13, 1))]
     ]
 
+Receive_button =[
+    [sg.B("Receive Msg",size=(12, 1))]
+    ]
+layout3 =[
+    [  
+        sg.Column(Post_message)
+    ]]
 
+layout4 =[
+    [sg.Column(Receive_button)],
+    [sg.Multiline(size=(80, 22),key="-RECEIVEMSG-",disabled=True)]
+    ]
 layout = [
 
     [
         sg.Column(Region),
         sg.VSeperator(),
         sg.Column(Queue_list)],      
-    [  
-        sg.Column(Post_message),
+     [sg.TabGroup([[sg.Tab('Send', layout3, tooltip='Send Message To An SQS')],[
+         sg.Tab('Receive', layout4, tooltip='Send Message To An SQS')]]),
         sg.VSeperator(),
-        sg.Column(Console),
-    ]
-   
+        sg.Column(Console)]   
 ]
 
 config =[
@@ -86,7 +93,7 @@ config =[
 
 layout2 = [[sg.Column(config)]]
 
-tabgrp = [[sg.TabGroup([[sg.Tab('Config', layout2, tooltip='Send Message To An SQS')],[sg.Tab('Send SQS Message', layout, tooltip='Send Message To An SQS')]])]]  
+tabgrp = [[sg.TabGroup([[sg.Tab('Config', layout2)],[sg.Tab('SQS', layout)]])]]  
 
 #--------------AWS SQS specific Functions--------------------------------------
 
@@ -109,7 +116,6 @@ def get_queue_url(REGION_NAME,window):
             #window.write_event_value('-WRITE-',"***No Queues available/Check connection detail***")
             return (queue_list)
         else:
-            ic(response['QueueUrls'])
             for queue in response['QueueUrls']:
             #desc = re.search('queue.amazonaws.com/(.*)', queue)
                 queue_list.append(queue)
@@ -142,15 +148,29 @@ def send_message(msg, REGION_NAME, queue_url):
         }
     )
     CLIENT = session.client('sqs', config=REGION_CONFIG)
-    message = {"test": msg}
-    
-    ic(message)
-    
+    message = {"test": msg}    
     response = CLIENT.send_message(
         QueueUrl=queue_url,
         MessageBody=json.dumps(message)
     )
     return response
+
+def receive_message(REGION_NAME, queue_url):
+    REGION_CONFIG = Config(
+    region_name = REGION_NAME,
+    signature_version = 'v4',
+    retries = {
+        'max_attempts': 3
+        }
+    )
+    CLIENT = session.client('sqs', config=REGION_CONFIG)
+    
+    response = CLIENT.receive_message(
+        QueueUrl=queue_url,
+        AttributeNames=['ALL']
+    )
+    return response
+
 
 #get all the AWS regions
 def get_az():
@@ -164,19 +184,37 @@ def msg_worker_thread(msg,region_name,queue_name,run_freq,delay, window):
     try:
         window.write_event_value('-WRITE-',"***Starting Sending Message To Queue: {}***".format(queue_name))
         for i in range(run_freq):
+            start_timer = time.perf_counter()
             resp = send_message(msg,region_name,queue_name)
+            end_timer =time.perf_counter()
             window.write_event_value('-WRITE-',resp)
+            window.write_event_value('-WRITE-',"Execution Time (sec): {}".format(end_timer - start_timer))
             time.sleep(delay)
         window.write_event_value('-WRITE-',"***Finished Sending Message To Queue: {}***".format(queue_name))
     except Exception as e:
         window.write_event_value('-WRITE-',e)
 
 
+def msg_worker_thread1(region_name,queue_name,run_freq,delay, window):
+    try:
+        window.write_event_value('-WRITE-',"***Starting Receving Message To Queue: {}***".format(queue_name))
+        for i in range(run_freq):
+            start_timer = time.perf_counter()
+            resp = receive_message(region_name,queue_name)
+            end_timer =time.perf_counter()
+            window.write_event_value('-RECEIVE-',resp['Messages'][0]['Body'])
+            window.write_event_value('-WRITE-',resp['ResponseMetadata'])
+            window.write_event_value('-WRITE-',"Execution Time (sec): {}".format(end_timer - start_timer))
+            time.sleep(delay)
+        window.write_event_value('-WRITE-',"***Finished Receiving Message To Queue: {}***".format(queue_name))
+    except Exception as e:
+        window.write_event_value('-WRITE-',e)
+
 
 #-----------------Main function------------------------------------
 def main():
     
-    window = sg.Window('SQS WORKBENCH', tabgrp) #layout
+    window = sg.Window('AWS SQS WORKBENCH', tabgrp) #layout
     
     REGION_NAME=[]
     region_loop = False
@@ -222,8 +260,7 @@ def main():
                     window["-REGION-"].update(region_list)
                     region_loop = True
             except Exception as e:
-                text  = window["-CONSOLEMSG-"]
-                window["-CONSOLEMSG-"].update(text.get()+str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e))
+                window["-CONSOLEMSG-"].update(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e)+"\n", append=True )
         
         if event == 'List Queues':
             try:
@@ -231,13 +268,13 @@ def main():
                 window["-QUEUENAME-"].update([])
                 url = get_queue_url(REGION_NAME,window)
                 if not url:
-                    text = window["-CONSOLEMSG-"]
-                    window["-CONSOLEMSG-"].update(text.get()+ str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) + ": No Queues in this region")
+                    data=[]
+                    window["-TABLE-"].update(data)
+                    window["-CONSOLEMSG-"].update(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) + ": No Queues in this region\n", append=True)
                 else:
                     window["-QUEUENAME-"].update(url)
             except Exception as e:
-                text  = window["-CONSOLEMSG-"]
-                window["-CONSOLEMSG-"].update(text.get()+str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e) +" /Check Connection Detail")
+                window["-CONSOLEMSG-"].update(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e) +" /Check Connection Detail\n", append=True)
         
         if event == '-QUEUENAME-':
             try:
@@ -251,21 +288,13 @@ def main():
                              resp['Attributes']['ApproximateNumberOfMessagesDelayed']])
                 window["-TABLE-"].update(data)
             except Exception as e:
-                text  = window["-CONSOLEMSG-"]
-                window["-CONSOLEMSG-"].update(text.get()+str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e))
-                
-            # print(resp['Attributes']['ApproximateNumberOfMessages'])
-            # print(resp['Attributes']['ApproximateNumberOfMessagesNotVisible'])
-            # print(resp['Attributes']['ApproximateNumberOfMessagesDelayed'])
-            # print(resp['Attributes']['LastModifiedTimestamp'])
-            # print(resp['Attributes']['VisibilityTimeout'])
-            # print(resp['Attributes']['CreatedTimestamp'])
-            # print(resp['Attributes']['MaximumMessageSize'])
-            # print(resp['Attributes']['MessageRetentionPeriod'])
+                window["-CONSOLEMSG-"].update(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e)+"\n", append=True)
         
+        if event == '-RECEIVE-':
+            window['-RECEIVEMSG-'].update(str(values['-RECEIVE-']))
+            
         if event == '-WRITE-':
-            text  = window["-CONSOLEMSG-"]
-            window["-CONSOLEMSG-"].update(text.get()+str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(values['-WRITE-']))
+            window["-CONSOLEMSG-"].update(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(values['-WRITE-'])+"\n", append=True)
             #window.refresh
         
         if event == 'Load':
@@ -276,8 +305,7 @@ def main():
                         text = f.read()
                         window["-QUEUEMSG-"].update(text)
                 except Exception as e:
-                    text  = window["-CONSOLEMSG-"]
-                    window["-CONSOLEMSG-"].update(text.get()+str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e))
+                    window["-CONSOLEMSG-"].update(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e)+"\n", append=True)
         if event == 'Send Multi Msgs':
             try:
                 counter = int(values['-ITERATE-'])
@@ -287,8 +315,7 @@ def main():
                                        REGION_NAME,values["-QUEUENAME-"][0], 
                                        counter,delay, window,),  daemon=True).start()
             except Exception as e:
-                text  = window["-CONSOLEMSG-"]
-                window["-CONSOLEMSG-"].update(text.get()+str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e))
+                window["-CONSOLEMSG-"].update(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e)+"\n", append=True)
         
         if event == 'Send Once':
             try:
@@ -297,9 +324,17 @@ def main():
                                        REGION_NAME,values["-QUEUENAME-"][0], 
                                        1,0, window,),  daemon=True).start()
             except Exception as e:
-                text  = window["-CONSOLEMSG-"]
-                window["-CONSOLEMSG-"].update(text.get()+str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e))
+                window["-CONSOLEMSG-"].update(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e)+"\n", append=True)
 
+        
+        if event == 'Receive Msg':
+            try:
+                threading.Thread(target=msg_worker_thread1, 
+                                 args=(REGION_NAME,values["-QUEUENAME-"][0], 
+                                       1,0, window,),  daemon=True).start()
+            except Exception as e:
+                window["-CONSOLEMSG-"].update(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e)+"\n", append=True)
+            
         if event == 'Save Output':
             try:
                 file= open("output.txt", 'a+')
@@ -311,8 +346,7 @@ def main():
         
         
         if event == 'Clear Output':
-            text  = ""
-            window["-CONSOLEMSG-"].update(text)
+            window["-CONSOLEMSG-"].update("")
     window.close()
 
 if __name__ == '__main__':
