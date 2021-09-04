@@ -366,7 +366,8 @@ Enter
 GUI utility for Windows OS to send message to AWS SQS.
 Currently MVP status. More feature and improvements will be added to it.
 
-Current version requires you to build exe from the code.
+Executable can be downloaded from [here](https://github.com/hseera/aws-python-utilities/blob/main/sqs_workbench.zip).
+Unzip the folder and run the sqs_workbench.exe file.
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/sqs-playa.png)
 
 
