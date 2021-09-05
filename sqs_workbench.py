@@ -323,21 +323,28 @@ def main():
         
         if event == 'Send Multi Msgs':
             try:
-                counter = int(values['-ITERATE-'])
-                delay = int(values['-DELAY-'])
-                threading.Thread(target=msg_worker_thread, 
-                                 args=(values['-QUEUEMSG-'],
-                                       REGION_NAME,values["-QUEUENAME-"][0], 
-                                       counter,delay, window,),  daemon=True).start()
+                #print(len(values["-QUEUENAME-"][0]))
+                if not values['-ITERATE-'] or not values['-DELAY-'] or not values["-QUEUENAME-"]:
+                    sg.popup("Missing delay/# of message/Queue?")
+                else:
+                    counter = int(values['-ITERATE-'])
+                    delay = int(values['-DELAY-'])
+                    threading.Thread(target=msg_worker_thread, 
+                                     args=(values['-QUEUEMSG-'],
+                                           REGION_NAME,values["-QUEUENAME-"][0], 
+                                           counter,delay, window,),  daemon=True).start()
             except Exception as e:
                 window["-CONSOLEMSG-"].update(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e)+"\n", append=True)
         
         if event == 'Send Once':
             try:
-                threading.Thread(target=msg_worker_thread, 
-                                 args=(values['-QUEUEMSG-'],
-                                       REGION_NAME,values["-QUEUENAME-"][0], 
-                                       1,0, window,),  daemon=True).start()
+                if not values["-QUEUENAME-"]:
+                    sg.popup("Forgot to select queue?")
+                else:
+                    threading.Thread(target=msg_worker_thread, 
+                                     args=(values['-QUEUEMSG-'],
+                                           REGION_NAME,values["-QUEUENAME-"][0], 
+                                           1,0, window,),  daemon=True).start()
             except Exception as e:
                 window["-CONSOLEMSG-"].update(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e)+"\n", append=True)
 
