@@ -1,14 +1,9 @@
-# sqs_playa.py
 '''
 Useful for sending one or multiple messages to AWS SQS.Especially useful for those using Windows OS.
 The application is build using PySimpleGUI. 
 It expects you have setup the aws id/key in
 Linux:   /home/[username]/.aws
 Windows: /Users/[username]/.aws
-
-In subsequent build will have 
-1: The capability to enter credentials in the application.
-2: Executable application. Currently you will need to build it. 
 
 '''
 
@@ -34,7 +29,7 @@ Region = [
          [sg.B("List Regions",size=(13, 1)), sg.B("List Queues",size=(13, 1))]
     ]
 
-Queue_list =[
+view_queues =[
     [sg.Text("Queue List (Select Queue from the list)")],
     [sg.Listbox(values=[], enable_events=True, size=(112, 5), key="-QUEUENAME-")],
     [sg.Table(values=data,key="-TABLE-", headings=['ApproximateNumberOfMessages', 'ApproximateNumberOfMessagesNotVisible', 'ApproximateNumberOfMessagesDelayed'],auto_size_columns=False, col_widths=[27, 30, 30],  num_rows=3)]
@@ -51,35 +46,54 @@ Post_message =[
     ]
 
 Console =[
-    [sg.Text("Output")],
+    [sg.Text("Console")],
     [sg.Multiline(size=(60, 22),key="-CONSOLEMSG-",disabled=True)],
-    [sg.B("Clear Output",size=(26, 1)),sg.B("Save Output",size=(26, 1))]
+    [sg.B("Clear Console",size=(26, 1)),sg.B("Save Console",size=(26, 1))]
     ]
 
 Region_buttons =[
     [sg.B("List Regions",size=(12, 1)), sg.B("List Queues",size=(13, 1))]
     ]
 
-Receive_button =[
-    [sg.B("Receive Msg",size=(12, 1))]
-    ]
-layout3 =[
-    [  
-        sg.Column(Post_message)
-    ]]
+Receive_button =[[sg.B("View",size=(12, 1))]]
 
-layout4 =[
+send_message =[[sg.Column(Post_message)]]
+
+view_message =[
     [sg.Column(Receive_button)],
-    [sg.Multiline(size=(80, 22),key="-RECEIVEMSG-",disabled=True)]
-    ]
-layout = [
+    [sg.Multiline(size=(80, 22),key="-RECEIVEMSG-",disabled=True)]]
 
+delete_message =[
+    [sg.Text("Not Yet Implemented")]
+    ]
+
+create_queue =[
+    [sg.Text("Not Yet Implemented")]
+    ]
+
+update_queue =[
+    [sg.Text("Not Yet Implemented")]
+    ]
+
+delete_queue =[
+    [sg.Text("Not Yet Implemented")]
+    ]
+
+sqs_layout = [
     [
         sg.Column(Region),
         sg.VSeperator(),
-        sg.Column(Queue_list)],      
-     [sg.TabGroup([[sg.Tab('Send', layout3, tooltip='Send Message To An SQS')],[
-         sg.Tab('Receive', layout4, tooltip='Send Message To An SQS')]]),
+        sg.TabGroup(
+         [[sg.Tab('View Queues', view_queues)],
+          [sg.Tab('Create Queues', create_queue)],
+          [sg.Tab('Update Queues', update_queue)],
+          [sg.Tab('Delete Queues', delete_queue)]])
+        ],      
+     [
+      sg.TabGroup(
+         [[sg.Tab('Send Msg', send_message)],
+          [sg.Tab('View Msg', view_message)],
+          [sg.Tab('Delete/Purge Msg', delete_message)]]),
         sg.VSeperator(),
         sg.Column(Console)]   
 ]
@@ -91,9 +105,9 @@ config =[
     [sg.B("Reset",size=(28, 1)),sg.B("Connect",size=(27, 1))]
     ]
 
-layout2 = [[sg.Column(config)]]
+config_layout = [[sg.Column(config)]]
 
-tabgrp = [[sg.TabGroup([[sg.Tab('Config', layout2)],[sg.Tab('SQS', layout)]])]]  
+tabgrp = [[sg.TabGroup([[sg.Tab('Config', config_layout)],[sg.Tab('SQS', sqs_layout)]])]]  
 
 #--------------AWS SQS specific Functions--------------------------------------
 
@@ -246,9 +260,8 @@ def main():
                 else:
                     session = Session(region_name=values['-DEFREGION-'], aws_access_key_id=values['-AWSID-'],
                                   aws_secret_access_key=values['-AWSKEY-'])
-                #print(session.get_credentials().access_key)
-                #print(session.get_credentials().secret_key)
-                #print(session.region_name)
+                    #need to validate if connection is successful or not
+                    sg.popup("Connection Established")
             except Exception as e:
                 sg.popup(e)
         
@@ -329,7 +342,7 @@ def main():
                 window["-CONSOLEMSG-"].update(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e)+"\n", append=True)
 
         
-        if event == 'Receive Msg':
+        if event == 'View':
             try:
                 threading.Thread(target=msg_worker_thread1, 
                                  args=(REGION_NAME,values["-QUEUENAME-"][0], 
@@ -337,7 +350,7 @@ def main():
             except Exception as e:
                 window["-CONSOLEMSG-"].update(str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")) +": "+str(e)+"\n", append=True)
             
-        if event == 'Save Output':
+        if event == 'Save Console':
             try:
                 file= open("output.txt", 'a+')
             except FileNotFoundError:
@@ -347,7 +360,7 @@ def main():
             sg.popup("File Saved")
         
         
-        if event == 'Clear Output':
+        if event == 'Clear Console':
             window["-CONSOLEMSG-"].update("")
     window.close()
 
