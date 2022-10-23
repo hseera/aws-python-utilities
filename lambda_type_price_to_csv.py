@@ -38,8 +38,8 @@ def get_price_by_region ():
     price_list=[]
 
     for key, val in region_price_dict['regions'].items():
-        for key1, val2 in val.items():
-            price_list.append([key, key1, val2['price']])
+        for item_key, item_val in val.items():
+            price_list.append([key, item_key, item_val['price']])
             
     return (price_list)
 
