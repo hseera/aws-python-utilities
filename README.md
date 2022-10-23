@@ -18,7 +18,7 @@ The readme page will continue to get updated as and when, I add new utility to t
 |[7: Bucket Size](#7-bucket-size)|[8: Copy DynamoDB Table](#8-copy-dynamodb-table)|
 |[9: Sample PartiQL DynamoDB Script](#9-sample-partiql-dynamodb-script)|[10: Spot Instance info](#10-spot-instance-info)|
 |[11: Stop Start EC2](#11-stop-start-ec2)|[12: Synthetic Monitoring](#12-synthetic-monitoring)|
-|[13: SQS Workbench](#13-sqs-workbench)||
+|[13: SQS Workbench](#13-sqs-workbench)|[14: Lambda Region Price](#14-lambda-region-price)|
 
 # [1: Cloudwatch Metrics To Image](#1-cloudwatch-metrics-to-image)
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/cloudwatch-metrics.png)
@@ -370,6 +370,10 @@ Executable can be downloaded from [here](https://github.com/hseera/aws-python-ut
 Unzip the folder and run the sqs_workbench.exe file.
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/sqs-playa.png)
 
+#[14: Lambda Region Price](#14-lambda-region-price)
+This [python utility](https://github.com/hseera/aws-python-utilities/blob/main/lambda_type_price_to_csv.py) writes price for each lambda type in each region to csv.
+![index](https://github.com/hseera/aws-python-utilities/blob/main/images/lambda-price.png)
+ 
 
 ## Requirements
 ### Python Modules
