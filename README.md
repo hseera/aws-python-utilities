@@ -370,7 +370,7 @@ Executable can be downloaded from [here](https://github.com/hseera/aws-python-ut
 Unzip the folder and run the sqs_workbench.exe file.
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/sqs-playa.png)
 
-#[14: Lambda Region Price](#14-lambda-region-price)
+# [14: Lambda Region Price](#14-lambda-region-price)
 This [python utility](https://github.com/hseera/aws-python-utilities/blob/main/lambda_type_price_to_csv.py) writes price for each lambda type in each region to csv.
 ![index](https://github.com/hseera/aws-python-utilities/blob/main/images/lambda-price.png)
  
